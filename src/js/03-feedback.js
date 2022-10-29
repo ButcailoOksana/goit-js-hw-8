@@ -1,45 +1,50 @@
 import throttle from 'lodash.throttle';
+import '../css/common.css';
+import '../css/03-feedback.css';
 
-const form = document.querySelector('.feedback-form');
-const email = document.querySelector('[name=email]');
-const text = document.querySelector('[name=message]');
+const FEEDBACK_KEY = 'feedback-form-state';
+const formEl = document.querySelector('.feedback-form');
+const mailEl = document.querySelector('input');
+const messageEl = document.querySelector('textarea');
 
-const TEXT_INPUT = 'feedback-form-state';
+let formData = {};
+populateForm();
 
-form.addEventListener('submit', onSubmit);
+formEl.addEventListener('submit', onFormSubmit);
+formEl.addEventListener('input', throttle(onFormInput, 500));
 
-showSavedInput();
+function onFormSubmit(event) {
+  event.preventDefault();
 
-function onInput(e) {
-  let formInput = localStorage.getItem(TEXT_INPUT);
-  formInput = formInput ? JSON.parse(formInput) : {};
-  formInput[e.target.name] = e.target.value;
+  const mailValue = event.target.elements.email.value;
+  const messageValue = event.target.elements.message.value;
+  const UserObj = {
+    mailValue,
+    messageValue,
+  };
+  console.log(UserObj);
 
-  localStorage.setItem(TEXT_INPUT, JSON.stringify(formInput));
+  if (mailValue === '' || messageValue === '') {
+    return alert('All fields must be filled in');
+  }
+
+  event.target.reset();
+  localStorage.removeItem(FEEDBACK_KEY);
 }
 
-function onSubmit(e) {
-  const save = localStorage.getItem(TEXT_INPUT);
-  e.preventDefault();
-  console.log(JSON.parse(save));
-  localStorage.removeItem(TEXT_INPUT);
-  e.target.reset();
+function onFormInput(event) {
+  formData[event.target.name] = event.target.value;
+
+  localStorage.setItem(FEEDBACK_KEY, JSON.stringify(formData));
 }
 
-function showSavedInput() {
-  let formInput = localStorage.getItem(TEXT_INPUT);
-  console.log('Function show', formInput);
+function populateForm() {
+  const saveMessage = localStorage.getItem(FEEDBACK_KEY);
 
-  if (formInput) {
-    formInput = JSON.parse(formInput);
+  if (saveMessage) {
+    formData = JSON.parse(saveMessage);
 
-    Object.entries(formInput).forEach(([name, value]) => {
-      form.elements[name].value = value;
-    });
-
-    // formInput.message ? (text.value = formInput.message) : '';
-    // formInput.email ? (email.value = formInput.email) : '';
+    mailEl.value = formData.email ? formData.email : '';
+    messageEl.value = formData.message ? formData.message : '';
   }
 }
-
-form.addEventListener('input', throttle(onInput, 500));
