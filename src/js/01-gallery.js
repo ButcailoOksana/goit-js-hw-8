@@ -59,4 +59,4 @@ const galleryLightbox = new SimpleLightbox('.gallery a', {
    className: 'lightbox',
    enableKeyboard: true,
  });
- lightbox.next();
+
