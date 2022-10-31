@@ -1,5 +1,5 @@
-// import SimpleLightbox from 'simplelightbox';
-// import 'simplelightbox/dist/simple-lightbox.min.css';
+ import SimpleLightbox from 'simplelightbox';
+import 'simplelightbox/dist/simple-lightbox.min.css';
 // Add imports above this line
 import { galleryItems } from './gallery-items.js';
 // Change code below this line
@@ -49,14 +49,14 @@ const galleryLightbox = new SimpleLightbox('.gallery a', {
   captionDelay: 250,
 });
 
-// new SimpleLightbox('.gallery a', {
-//   captions: true,
-//   captionSelector: 'img',
-//   captionType: 'tittle',
-//   captionPosition: 'bottom',
-//   captionDelay: 250,
-//   captionClass: 'lightbox__padding',
-//   className: 'lightbox',
-//   enableKeyboard: true,
-// });
-// lightbox.next();
+ new SimpleLightbox('.gallery a', {
+   captions: true,
+   captionSelector: 'img',
+  captionType: 'tittle',
+   captionPosition: 'bottom',
+   captionDelay: 250,
+   captionClass: 'lightbox__padding',
+   className: 'lightbox',
+   enableKeyboard: true,
+ });
+ lightbox.next();
