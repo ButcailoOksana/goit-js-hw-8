@@ -44,19 +44,9 @@ function createMarkup(galleryItems) {
 
 //   instance.show();
 // }
-const galleryLightbox = new SimpleLightbox('.gallery a', {
-  captionsData: 'alt',
-  captionDelay: 250,
+new SimpleLightbox('.gallery a', {
+    captionsData: 'alt',
+    captionPosition: 'bottom',
+    captionDelay: 250,
 });
-
- new SimpleLightbox('.gallery a', {
-   captions: true,
-   captionSelector: 'img',
-  captionType: 'tittle',
-   captionPosition: 'bottom',
-   captionDelay: 250,
-   captionClass: 'lightbox__padding',
-   className: 'lightbox',
-   enableKeyboard: true,
- });
 
